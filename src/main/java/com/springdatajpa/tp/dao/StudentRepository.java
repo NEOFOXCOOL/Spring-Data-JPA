@@ -1,9 +1,11 @@
 package com.springdatajpa.tp.dao;
 
 import com.springdatajpa.tp.entity.Student;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -27,5 +29,8 @@ Optional<Student> selectStudentwithnameandage(
 @Modifying
 @Query("delete from Student u where u.id = ?1")
     int deleteStudentById(Long id);
+
+@Query(value = "select * from student order by student_age asc",nativeQuery = true)
+List<Student> findOrderByAgeAsc(Pageable pageable);
 
 }

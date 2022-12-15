@@ -4,12 +4,15 @@ import com.github.javafaker.Faker;
 import com.springdatajpa.tp.dao.StudentRepository;
 import com.springdatajpa.tp.entity.Student;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import javax.naming.ldap.SortControl;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Configuration
 public class StudentConfiguration {
@@ -17,7 +20,9 @@ public class StudentConfiguration {
     CommandLineRunner commandLineRunner(StudentRepository studentRepository) {
         return  args -> {
         generatedRondomStudent(studentRepository);
-            System.out.println( Sort.by("first_name").ascending());
+        Pageable pageable = PageRequest.of(0,5);
+            List<Student> page = studentRepository.findOrderByAgeAsc(pageable);
+            System.out.println(page);
         };
     }
 
