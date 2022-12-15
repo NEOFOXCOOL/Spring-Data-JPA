@@ -16,9 +16,14 @@ public class Student {
     private Long id;
     @Column(
             nullable = false,
-            name = "student_name"
+            name = "student_first_name"
     )
-    private String name;
+    private String first_name;
+    @Column(
+            nullable = false,
+            name = "student_last_name"
+    )
+    private String last_name;
     @Column(
             nullable = false,
             name = "student_password"
