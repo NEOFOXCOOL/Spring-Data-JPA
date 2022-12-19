@@ -77,31 +77,11 @@ public class Student {
     )
     private List<Book> books = new ArrayList<>();
 
-    @ManyToMany(
-            cascade = {CascadeType.PERSIST,CascadeType.REMOVE}
+    @OneToMany(
+            cascade = {CascadeType.PERSIST,CascadeType.REMOVE},
+            mappedBy = "student"
     )
-    @JoinTable(
-            //name of created table
-            name = "enrolement",
-
-            //student table join
-            joinColumns =
-                    @JoinColumn(
-                            name = "student_id",
-                            foreignKey = @ForeignKey(
-                                    name = "enrolement_student_id_fk"
-                            )
-                    ),
-
-            //cours table join
-            inverseJoinColumns =  @JoinColumn(
-                    name = "cours_id",
-                    foreignKey = @ForeignKey(
-                            name = "enrolement_cours_id_fk"
-                    )
-            )
-    )
-    private List<Cours> courses = new ArrayList<>();
+    private List<Enrolment> enrolments = new ArrayList<>();
 
     public Student(
             String first_name,
@@ -133,13 +113,13 @@ public class Student {
         }
     }
 
-public void enrolCours(Cours cours){
-        courses.add(cours);
-        cours.getStudents().add(this);
-}
+    public void addEnrolment(Enrolment enrolment){
+        if(!enrolments.contains(enrolment)){
+            enrolments.add(enrolment);
+        }
+    }
+    public void removeEnrolment(Enrolment enrolment){
+        enrolments.remove(enrolment);
+    }
 
-public void unEnrolCours(Cours cours){
-        courses.remove(cours);
-        cours.getStudents().remove(this);
-}
 }

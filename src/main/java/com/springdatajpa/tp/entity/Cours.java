@@ -2,8 +2,6 @@ package com.springdatajpa.tp.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import javax.management.ConstructorParameters;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,12 +45,22 @@ public class Cours {
     )
     private String department;
 
-    @ManyToMany(mappedBy = "courses")
-    private List<Student> students = new ArrayList<>();
+    @OneToMany(
+            cascade = {CascadeType.PERSIST,CascadeType.REMOVE},
+            mappedBy = "cours")
+    private List<Enrolment> enrolments = new ArrayList<>();
 
     public Cours(String name,String department){
         this.name = name;
         this.department = department;
     }
 
+    public void addEnrolment(Enrolment enrolment){
+        if(!enrolments.contains(enrolment)){
+            enrolments.add(enrolment);
+        }
+    }
+    public void removeEnrolment(Enrolment enrolment){
+        enrolments.remove(enrolment);
+    }
 }

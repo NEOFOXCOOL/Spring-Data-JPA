@@ -15,19 +15,19 @@ import java.util.Objects;
 @Getter
 @Setter
 public class EnrolmentId implements Serializable {
-    private Long student_id;
-    private Long cours_id;
+    private Long studentId;
+    private Long coursId;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EnrolmentId that = (EnrolmentId) o;
-        return Objects.equals(student_id, that.student_id) && Objects.equals(cours_id, that.cours_id);
+        return Objects.equals(studentId, that.studentId) && Objects.equals(coursId, that.coursId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(student_id, cours_id);
+        return Objects.hash(studentId, coursId);
     }
 }

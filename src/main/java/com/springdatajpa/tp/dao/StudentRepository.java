@@ -14,6 +14,13 @@ import java.util.Optional;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student ,Long> {
+
+
+    @Query(value = "select * from Student s where s.id = ?1",nativeQuery = true)
+    List<Student> findStudentsbyId(Long id);
+
+//Student findStudentByFirst_name(String first_name);
+
 //    @Query("select s from Student s where s.email=?1")
 //    Optional<Student> findStudentsByEmail(String email);
 //
